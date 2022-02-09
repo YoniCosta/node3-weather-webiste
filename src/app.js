@@ -5,6 +5,7 @@ const geoCode = require('./utils/geoCode')
 const foreCast = require('./utils/forecast')
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 // Define paths for Express config
 const viewsPath = path.join(__dirname, '../tamplates/views')
@@ -49,7 +50,7 @@ app.get('/weather', (req, res) => {
     }
     geoCode(req.query.address, (error, { latitude, longtitude, location } = {}) => {
         if (error) {
-            return res.send({error: 'You must provide an address'})
+            return res.send({ error: 'You must provide an address' })
         }
         foreCast(latitude, longtitude, (error, forecastData) => {
             if (error) {
@@ -59,7 +60,7 @@ app.get('/weather', (req, res) => {
                 {
                     forecast: forecastData,
                     address: req.query.address,
-                    location:location
+                    location: location
                 }
             )
         })
@@ -103,6 +104,6 @@ app.get('*', (req, res) => {
 // app.com/weather
 
 
-app.listen(3000, () => {
-    console.log('Server is up on port 3000')
+app.listen(port, () => {
+    console.log('Server is up on port ' + port)
 })
