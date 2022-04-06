@@ -12,9 +12,9 @@ const forecast = (lat, long, callback) => {
         } else if (body.error) {
             callback(`Unable to forcast the weather for the given location`, undefined)
         } else {
-            const { temperature, feelslike } = body.current;
+            const { temperature, feelslike, humidity } = body.current;
             const description = body.current.weather_descriptions[0];
-            callback(undefined, `${description} ,It is currently ${temperature} degress out, but feels like ${feelslike}.`)
+            callback(undefined, `${description} ,It is currently ${temperature} degress out, but feels like ${feelslike} and the humidity is about: ${humidity}`)
         }
     })
 
